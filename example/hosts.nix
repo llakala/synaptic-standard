@@ -15,6 +15,9 @@ let
 
   base = [
     ./base
+
+    # any custom modules we defined are collected into this one module
+    inputs.self.nixosModules.default
   ];
   gaming = [
     ./optional/gaming
