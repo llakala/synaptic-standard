@@ -17,10 +17,12 @@ ways of structuring your files in NixOS, we can go through:
 - The solutions I use instead to solve the same issues
 
 
-## A single configuration.nix is hard to maintain. When you first install NixOS,
-it comes with a `configuration.nix` file. Even if you move to flakes, you're
-likely still wrapping a normal `configuration.nix`. This file gets increasingly
-hard to maintain, as the amount of configuration you have increases over time.
+## A single configuration.nix is hard to maintain
+
+When you first install NixOS, it comes with a `configuration.nix` file. Even if
+you move to flakes, you're likely still wrapping a normal `configuration.nix`.
+This file gets increasingly hard to maintain, as the amount of configuration you
+have increases over time.
 
 The solution to this is to split your `configuration.nix` into multiple files.
 And splitting is great. Want to add some configuration for `fish`? Make a
