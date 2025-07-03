@@ -29,19 +29,19 @@ let
 in
 {
   laptop = lib.nixosSystem {
-    inherit specialArgs;
+    specialArgs = specialArgs // { hostVars.username = "me"; };
 
     modules = resolveAndFilter (base ++ desktop ++ [ ./hosts/laptop ]);
   };
 
   desktop = lib.nixosSystem {
-    inherit specialArgs;
+    specialArgs = specialArgs // { hostVars.username = "me"; };
 
     modules = resolveAndFilter (base ++ gaming ++ desktop ++ [ ./hosts/desktop ]);
   };
 
   server = lib.nixosSystem {
-    inherit specialArgs;
+    specialArgs = specialArgs // { hostVars.username = "me"; };
 
     modules = resolveAndFilter (base ++ [ ./hosts/server ]);
   };
