@@ -72,12 +72,12 @@ each PART of configuring git.
 └── settings.nix
 ```
 
-Now, each of this files is small and maintainable, and it's easy to find a
-specific part of your config. But, how do we handle auto-imports when we now
-have nested folders?
+Each of this files are small and maintainable, and it's easy to find a specific
+part of your config. But how do we handle auto-imports when we now have nested
+folders?
 
 Well, we make our import function recursive! If it finds a folder, it should
 grab all the nix files within it. Now, we can extend our filetree with new files
-AND folders, and the auto-import function will automatically adapt. Great!
+AND folders, and the auto-import function will automatically adapt.
 
 WIP, KEEP WRITING
