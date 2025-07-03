@@ -17,20 +17,19 @@ ways of structuring your files in NixOS, we can go through:
 - The solutions I use instead to solve the same issues
 
 
-## A single configuration.nix is hard to maintain.
-When you first install NixOS, it comes with a `configuration.nix` file. Even if
-you move to flakes, you're likely still wrapping a normal `configuration.nix`.
-These files get increasingly hard to maintain, as the amount of configuration
-you have increases over time.
+## A single configuration.nix is hard to maintain. When you first install NixOS,
+it comes with a `configuration.nix` file. Even if you move to flakes, you're
+likely still wrapping a normal `configuration.nix`. This file gets increasingly
+hard to maintain, as the amount of configuration you have increases over time.
 
 The solution to this is to split your `configuration.nix` into multiple files.
 And splitting is great. Want to add some configuration for `fish`? Make a
 `fish.nix` file. How about `gnome`? Make a `gnome.nix` file!
 
 This is our first foray into the principle that guides all of this: **semantic
-collation**. The idea is that the name of a file and its location in your file
-tree should be intuitive. More on this later - but keep this in the back of your
-mind. This is really what we're shooting for.
+collation**. The idea is that the name of a file and its location in your
+filetree should be intuitive. More on this later - but keep this in the back of
+your mind. This is really what we're shooting for.
 
 ## Manual importing sucks
 
@@ -39,13 +38,10 @@ you make a new file, you have to `import` it to your configuration. And if you
 FORGET to import the file, you have a very frustrating bug on your hands, where
 you're making changes and rebuilding, but nothing seems to be applying.
 
-So, if you're splitting a ton, you end up babysitting your imports all the time.
-And if you don't split very much, you end up with the same problem as when you
-had a single `configuration.nix` file. How do we get all the benefits of
-splitting, without needing to constantly deal with imports?
-
-I believe the solution to this is a good auto-import function. No more fussing
-with `default.nix`: now, you can make new files as often as you want.
+We found the dawback of splitting: you end up babysitting your imports all the
+time. How do we keep the semantic colocation from splitting, while not having to
+constantly update our `default.nix`? I believe the solution to this is a good
+auto-import function. Now, you can make new files as often as you want.
 
 ## Auto-imports shouldn't just be flat
 
