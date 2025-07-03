@@ -45,10 +45,10 @@ auto-import function. Now, you can make new files as often as you want.
 
 ## Auto-imports shouldn't just be flat
 
-Now, we encounter a new problem: what if some of these files start getting
-too big on their own?
+But, of course, we encounter a new problem: what if some of these files start
+getting too big on their own?
 
-Let's take an example. I have a ton of git configurations: abbreviations,
+Let's use an example. I have a ton of git configurations: abbreviations,
 aliases, settings, and configuration of a few external git tools:
 `diff-so-fancy`, `difftastic`, and `git-revise`. Altogether, this comes out to
 198 lines of significant lines of code. Not horrible - but definitely more than
@@ -58,7 +58,8 @@ I could store all of this in a `git.nix` file, enter the file, and search for
 whatever I want to change. But that's just bringing back the problems we found
 with a single `configuration.nix`. Instead, what if we store the different parts
 of my git config within a `git/` folder? Now, we can have different files for
-each concern that's PART of configuring git.
+each PART of configuring git.
+
 ```bash
 ❯ tree ./git/
 ./git/
@@ -70,6 +71,7 @@ each concern that's PART of configuring git.
 ├── revise.nix
 └── settings.nix
 ```
+
 Now, each of this files is small and maintainable, and it's easy to find a
 specific part of your config. But, how do we handle auto-imports when we now
 have nested folders?
