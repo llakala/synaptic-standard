@@ -44,7 +44,7 @@
       # all the other modules. This mans we only have to import this module
       # once.
       #
-      # TODO: use recurseAndFilter here, so new modules don't have to be added
+      # TODO: use recursivelyImport here, so new modules don't have to be added
       # manually
       nixosModules.default = {
         imports = [

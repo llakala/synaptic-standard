@@ -7,7 +7,7 @@ let
   # a single folder and importing it recursively, it now takes a list of files,
   # folders, and modules. It'll import any folders recursively, but files won't
   # be recursive at all!
-  resolveAndFilter = import ./resolveAndFilter.nix { inherit lib; };
+  recursivelyImport = import ./recursivelyImport.nix { inherit lib; };
 
   specialArgs = {
     inherit inputs;
@@ -31,18 +31,18 @@ in
   laptop = lib.nixosSystem {
     specialArgs = specialArgs // { hostVars.username = "me"; };
 
-    modules = resolveAndFilter (base ++ desktop ++ [ ./hosts/laptop ]);
+    modules = recursivelyImport (base ++ desktop ++ [ ./hosts/laptop ]);
   };
 
   desktop = lib.nixosSystem {
     specialArgs = specialArgs // { hostVars.username = "me"; };
 
-    modules = resolveAndFilter (base ++ gaming ++ desktop ++ [ ./hosts/desktop ]);
+    modules = recursivelyImport (base ++ gaming ++ desktop ++ [ ./hosts/desktop ]);
   };
 
   server = lib.nixosSystem {
     specialArgs = specialArgs // { hostVars.username = "me"; };
 
-    modules = resolveAndFilter (base ++ [ ./hosts/server ]);
+    modules = recursivelyImport (base ++ [ ./hosts/server ]);
   };
 }
