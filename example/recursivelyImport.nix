@@ -1,19 +1,18 @@
 { lib }:
 
 let
-  recurseIntoFolders =
-    elem:
-    if lib.isPath elem && lib.pathIsDirectory elem then
-      lib.filesystem.listFilesRecursive elem
-    else
-      # If it's not a folder, return it unchanged. This handles single-files and
-      # literal modules (written with {} syntax)
-      [ elem ];
+  inherit (lib) concatMap hasSuffix;
+  inherit (builtins) isPath filter readFileType;
+
+  expandIfFolder = elem:
+    if !isPath elem || readFileType elem != "directory"
+      then [ elem ]
+    else lib.filesystem.listFilesRecursive elem;
+
 in
-  paths:
-    builtins.filter
-    # filter the files for `.nix` files. if it's not a file, it can stay.
-    # We make sure to run toString on the path, to prevent copying to the store
-    (path: !builtins.isPath path || lib.hasSuffix ".nix" (toString path))
-    # Expand any folders into all the files within them.
-    (builtins.concatMap recurseIntoFolders paths)
+  list: filter
+    # Filter out any path that doesn't look like `*.nix`. Don't forget to use
+    # toString to prevent copying paths to the store unnecessarily
+    (elem: !isPath elem || hasSuffix ".nix" (toString elem))
+    # Expand any folder to all the files within it.
+    (concatMap expandIfFolder list)
