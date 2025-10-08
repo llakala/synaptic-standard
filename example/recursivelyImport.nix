@@ -1,4 +1,5 @@
 { lib }:
+
 let
   recurseIntoFolders =
     elem:
@@ -7,15 +8,12 @@ let
     else
       # If it's not a folder, return it unchanged. This handles single-files and
       # literal modules (written with {} syntax)
-      lib.singleton elem;
-
-  filterNixFiles =
-    paths:
-    builtins.filter
-      # filter the files for `.nix` files. if it's not a file, it can stay.
-      (path: !builtins.isPath path || lib.hasSuffix ".nix" path)
-      # Expand any folders into all the files within them. Note that this comes
-      # BEFORE the filtering that's happening above
-      (builtins.concatMap recurseIntoFolders paths);
+      [ elem ];
 in
-filterNixFiles
+  paths:
+    builtins.filter
+    # filter the files for `.nix` files. if it's not a file, it can stay.
+    # We make sure to run toString on the path, to prevent copying to the store
+    (path: !builtins.isPath path || lib.hasSuffix ".nix" (toString path))
+    # Expand any folders into all the files within them.
+    (builtins.concatMap recurseIntoFolders paths)
