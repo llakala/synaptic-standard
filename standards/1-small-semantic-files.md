@@ -78,6 +78,10 @@ method of sorting is intuitive for the individual. That's what gives them those
 fast mental lookups - where they immediately know where a file is stored,
 because everything was placed purposefully.
 
+This is only the start of what semantic colocation can provide. As we go on,
+we'll learn more about how we can use our filesystem to help us. If you're
+ready, move onto [Part 2 on auto-imports](./2-auto-imports.md).
+
 # TLDR
 
 Instead of keeping your config in one mega-file, split it into smaller files,
