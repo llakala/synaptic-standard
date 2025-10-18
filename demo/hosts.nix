@@ -11,38 +11,51 @@ let
 
   specialArgs = {
     inherit inputs;
+    baseVars.username = "me";
   };
-
-  base = [
-    ./base
-
-    # any custom modules we defined are collected into this one module
-    inputs.self.nixosModules.default
-  ];
-  gaming = [
-    ./optional/gaming
-  ];
-  desktop = [
-    ./optional/gnome.nix
-  ];
-
 in
 {
   laptop = lib.nixosSystem {
-    specialArgs = specialArgs // { hostVars.username = "me"; };
+    specialArgs = specialArgs // {
+      hostVars = {
+        hostname = "laptop";
+        stateVersion = "24.11";
+      };
+    };
 
-    modules = recursivelyImport (base ++ desktop ++ [ ./hosts/laptop ]);
+    modules = recursivelyImport [
+      ./base
+      ./workstation
+      ./hosts/laptop
+    ];
   };
 
   desktop = lib.nixosSystem {
-    specialArgs = specialArgs // { hostVars.username = "me"; };
+    specialArgs = specialArgs // {
+      hostVars = {
+        hostname = "desktop";
+        stateVersion = "25.05";
+      };
+    };
 
-    modules = recursivelyImport (base ++ gaming ++ desktop ++ [ ./hosts/desktop ]);
+    modules = recursivelyImport [
+      ./base
+      ./workstation
+      ./hosts/desktop
+    ];
   };
 
   server = lib.nixosSystem {
-    specialArgs = specialArgs // { hostVars.username = "me"; };
+    specialArgs = specialArgs // {
+      hostVars = {
+        hostname = "desktop";
+        stateVersion = "24.11";
+      };
+    };
 
-    modules = recursivelyImport (base ++ [ ./hosts/server ]);
+    modules = recursivelyImport [
+      ./base
+      ./hosts/server
+    ];
   };
 }

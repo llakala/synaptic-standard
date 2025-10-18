@@ -1,6 +1,6 @@
-{ hostVars, ... }:
+{ baseVars, ... }:
 {
-  users.users.${hostVars.username} = {
+  users.users.${baseVars.username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };

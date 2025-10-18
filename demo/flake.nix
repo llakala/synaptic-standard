@@ -18,10 +18,10 @@
       # add to this list if you have more systems
       supportedSystems = [ "x86_64-linux" ];
 
-      forAllSystems = func:
+      forAllSystems = apply:
         lib.genAttrs
         supportedSystems
-        (system: func inputs.nixpkgs.legacyPackages.${system});
+        (system: apply inputs.nixpkgs.legacyPackages.${system});
 
     in
     {
@@ -37,20 +37,6 @@
           packages = [ pkgs.git ];
         };
       });
-
-
-      # for easier access, we don't declare each custom module as its own unique
-      # flake output. Instead, we have a single `default` module, which imports
-      # all the other modules. This mans we only have to import this module
-      # once.
-      #
-      # TODO: use recursivelyImport here, so new modules don't have to be added
-      # manually
-      nixosModules.default = {
-        imports = [
-          # add custom nixos modules here, as you create them!
-        ];
-      };
 
       nixosConfigurations = import ./hosts.nix { inherit inputs; };
     };
