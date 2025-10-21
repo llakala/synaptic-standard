@@ -22,7 +22,6 @@ in
         stateVersion = "24.11";
       };
     };
-
     modules = recursivelyImport [
       ./base
       ./workstation
@@ -37,7 +36,6 @@ in
         stateVersion = "25.05";
       };
     };
-
     modules = recursivelyImport [
       ./base
       ./workstation
@@ -52,7 +50,6 @@ in
         stateVersion = "24.11";
       };
     };
-
     modules = recursivelyImport [
       ./base
       ./hosts/server

@@ -38,6 +38,6 @@
         };
       });
 
-      nixosConfigurations = import ./hosts.nix { inherit inputs; };
+      nixosConfigurations = import ./nixosConfigurations.nix { inherit inputs; };
     };
 }
