@@ -11,7 +11,7 @@ let
 
   specialArgs = {
     inherit inputs;
-    baseVars.username = "me";
+    baseVars.username = "user1";
   };
 in
 {
