@@ -1,8 +1,8 @@
 { lib }:
 
 let
-  inherit (lib) concatMap hasSuffix;
-  inherit (builtins) isPath filter readFileType;
+  inherit (lib) hasSuffix;
+  inherit (builtins) concatMap isPath filter readFileType;
 
   expandIfFolder = elem:
     if !isPath elem || readFileType elem != "directory"
