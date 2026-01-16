@@ -11,7 +11,7 @@
   };
 
   outputs =
-    { ... }@inputs:
+    inputs:
     let
       lib = inputs.nixpkgs.lib;
 
